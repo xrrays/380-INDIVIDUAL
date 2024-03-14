@@ -1,8 +1,3 @@
-/*
-Copyright Ann Barcomb and Khawla Shnaikat, 2024
-Licensed under GPL v3
-See LICENSE.txt for more information.
-*/
 package edu.ucalgary.oop;
 
 import org.junit.Before;
@@ -21,7 +16,6 @@ public class ReliefServiceTest {
 
     @Before
     public void setUp() {
-        // Assuming Inquirer, DisasterVictim, and Location have constructors as implied
         inquirer = new Inquirer("John", "Alex", "1234567890", "Looking for family member");
         missingPerson = new DisasterVictim("Jane Alex", "2024-01-25");
         lastKnownLocation = new Location("University of Calgary", "2500 University Dr NW");
@@ -70,7 +64,7 @@ public class ReliefServiceTest {
     }
 
     @Test
-    public void testGetLogDetails() {
+    public void testLogInteraction() {
         assertEquals("Log details should match the expected format", expectedLogDetails, reliefService.getLogDetails());
     }
 }
