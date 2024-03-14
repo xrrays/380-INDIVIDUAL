@@ -1,8 +1,3 @@
-/*
-Copyright Ann Barcomb and Khawla Shnaikat, 2024
-Licensed under GPL v3
-See LICENSE.txt for more information.
-*/
 package edu.ucalgary.oop;
 
 
@@ -35,10 +30,16 @@ public class FamilyRelationTest {
         assertEquals("setPersonTwo should update personTwo", newPersonTwo, testFamilyRelationObject.getPersonTwo());
     }
 
+    //test that when realtion is changed it is changed for both
     @Test
     public void testSetAndGetRelationshipTo() {
         String newRelationship = "parent";
         testFamilyRelationObject.setRelationshipTo(newRelationship);
-        assertEquals("setRelationshipTo should update the relationship", newRelationship, testFamilyRelationObject.getRelationshipTo());
+        
+        // Get the relationship for both personOne and personTwo
+        String relationshipForPersonOne = testFamilyRelationObject.getPersonOne().getFamilyConnections()[0].getRelationshipTo();
+        String relationshipForPersonTwo = testFamilyRelationObject.getPersonTwo().getFamilyConnections()[0].getRelationshipTo();
+        
+        assertEquals("setRelationshipTo should update the relationship for personOne", newRelationship, relationshipForPersonOne);
+        assertEquals("setRelationshipTo should update the relationship for personTwo", newRelationship, relationshipForPersonTwo);
     }
-}
