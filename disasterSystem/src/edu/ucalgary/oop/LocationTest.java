@@ -1,8 +1,3 @@
-/*
-Copyright Ann Barcomb and Khawla Shnaikat, 2024
-Licensed under GPL v3
-See LICENSE.txt for more information.
-*/
 package edu.ucalgary.oop;
 
 import org.junit.Before;
@@ -36,14 +31,14 @@ public class LocationTest {
     }
 
     @Test
-    public void testSetName() {
+    public void testSetAndGetName() {
         String newName = "Shelter B";
         location.setName(newName);
         assertEquals("setName should update the name of the location", newName, location.getName());
     }
 
     @Test
-    public void testSetAddress() {
+    public void testSetAndGetAddress() {
         String newAddress = "4321 Shelter Blvd";
         location.setAddress(newAddress);
         assertEquals("setAddress should update the address of the location", newAddress, location.getAddress());
@@ -52,14 +47,16 @@ public class LocationTest {
     @Test
     public void testAddOccupant() {
         location.addOccupant(victim);
-        assertTrue("addOccupant should add a disaster victim to the occupants list", location.getOccupants().contains(victim));
+        assertTrue("addOccupant should add a disaster victim to the occupants list",
+                location.getOccupants().contains(victim));
     }
 
     @Test
     public void testRemoveOccupant() {
-        location.addOccupant(victim); // Ensure the victim is added first
+        location.addOccupant(victim);
         location.removeOccupant(victim);
-        assertFalse("removeOccupant should remove the disaster victim from the occupants list", location.getOccupants().contains(victim));
+        assertFalse("removeOccupant should remove the disaster victim from the occupants list",
+                location.getOccupants().contains(victim));
     }
 
     @Test
@@ -67,20 +64,23 @@ public class LocationTest {
         ArrayList<DisasterVictim> newOccupants = new ArrayList<>();
         newOccupants.add(victim);
         location.setOccupants(newOccupants);
-        assertTrue("setOccupants should replace the occupants list with the new list", location.getOccupants().containsAll(newOccupants));
+        assertTrue("setOccupants should replace the occupants list with the new list",
+                location.getOccupants().containsAll(newOccupants));
     }
 
     @Test
     public void testAddSupply() {
         location.addSupply(supply);
-        assertTrue("addSupply should add a supply to the supplies list", containsSupply(location.getSupplies(), supply));
+        assertTrue("addSupply should add a supply to the supplies list",
+                containsSupply(location.getSupplies(), supply));
     }
 
     @Test
     public void testRemoveSupply() {
         location.addSupply(supply); // Ensure the supply is added first
         location.removeSupply(supply);
-        assertFalse("removeSupply should remove the supply from the supplies list", containsSupply(location.getSupplies(), supply));
+        assertFalse("removeSupply should remove the supply from the supplies list",
+                containsSupply(location.getSupplies(), supply));
     }
 
     @Test
@@ -88,6 +88,27 @@ public class LocationTest {
         ArrayList<Supply> newSupplies = new ArrayList<>();
         newSupplies.add(supply);
         location.setSupplies(newSupplies);
-        assertTrue("setSupplies should replace the supplies list with the new list", containsSupply(location.getSupplies(), supply));
+        assertTrue("setSupplies should replace the supplies list with the new list",
+                containsSupply(location.getSupplies(), supply));
     }
+
+    // new method to test allocate supply
+    @Test
+    public void testAllocateSupply() {
+        Location location = new Location("Shelter A", "1234 Shelter Ave");
+        DisasterVictim victim = new DisasterVictim("John Doe", "2024-01-01");
+        Supply supply = new Supply("Water Bottle", 10);
+
+        location.allocateSupply(victim, supply);
+
+        // check if the victim has allocated supply
+        assertTrue("allocateSupply should allocate the supply to the victim",
+                victim.getSupplies().contains(supply));
+
+        // We need to ensure that when a Supply is allocated to a DisasterVictim, it is
+        // removed from the available supplies at a Location.
+        assertFalse("allocateSupply should remove the supply from the location's supplies",
+                location.getSupplies().contains(supply));
+    }
+
 }
