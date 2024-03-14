@@ -12,7 +12,7 @@ public class ReliefServiceTest {
     private String validDate = "2024-02-10";
     private String invalidDate = "2024/02/10";
     private String expectedInfoProvided = "Looking for family member";
-    private String expectedLogDetails = "Inquirer: John, Missing Person: Jane Alex, Date of Inquiry: 2024-02-10, Info Provided: Looking for family member, Last Known Location: University of Calgary"; 
+    private String expectedLogDetails = "Inquirer: John, Missing Person: Jane Alex, Date of Inquiry: 2024-02-10, Info Provided: Looking for family member, Last Known Location: University of Calgary";
 
     @Before
     public void setUp() {
@@ -34,7 +34,8 @@ public class ReliefServiceTest {
 
     @Test
     public void testGetMissingPerson() {
-        assertEquals("Missing person should match the one set in setup", missingPerson, reliefService.getMissingPerson());
+        assertEquals("Missing person should match the one set in setup", missingPerson,
+                reliefService.getMissingPerson());
     }
 
     @Test
@@ -44,18 +45,21 @@ public class ReliefServiceTest {
 
     @Test
     public void testGetInfoProvided() {
-        assertEquals("Info provided should match the one set in setup", expectedInfoProvided, reliefService.getInfoProvided());
+        assertEquals("Info provided should match the one set in setup", expectedInfoProvided,
+                reliefService.getInfoProvided());
     }
 
     @Test
     public void testGetLastKnownLocation() {
-        assertEquals("Last known location should match the one set in setup", lastKnownLocation, reliefService.getLastKnownLocation());
+        assertEquals("Last known location should match the one set in setup", lastKnownLocation,
+                reliefService.getLastKnownLocation());
     }
 
     @Test
     public void testSetDateOfInquiryWithValidDate() {
         reliefService.setDateOfInquiry(validDate);
-        assertEquals("Setting a valid date should update the date of inquiry", validDate, reliefService.getDateOfInquiry());
+        assertEquals("Setting a valid date should update the date of inquiry", validDate,
+                reliefService.getDateOfInquiry());
     }
 
     @Test(expected = IllegalArgumentException.class)
