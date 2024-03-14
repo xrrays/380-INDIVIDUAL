@@ -1,6 +1,5 @@
 package edu.ucalgary.oop;
 
-
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -10,12 +9,12 @@ public class FamilyRelationTest {
     private DisasterVictim personTwo = new DisasterVictim("Jane Dalan", "2024-02-20");
     private String relationshipTo = "sibling";
     private FamilyRelation testFamilyRelationObject = new FamilyRelation(personOne, relationshipTo, personTwo);
-    
+
     @Test
     public void testObjectCreation() {
         assertNotNull(testFamilyRelationObject);
     }
-	
+
     @Test
     public void testSetAndGetPersonOne() {
         DisasterVictim newPersonOne = new DisasterVictim("New Person", "2024-03-21");
@@ -30,7 +29,7 @@ public class FamilyRelationTest {
         assertEquals("setPersonTwo should update personTwo", newPersonTwo, testFamilyRelationObject.getPersonTwo());
     }
 
-    //test that when realtion is changed it is changed for both
+    // test that when realtion is changed it is changed for both
     @Test
     public void testSetAndGetRelationshipTo() {
         String newRelationship = "parent";

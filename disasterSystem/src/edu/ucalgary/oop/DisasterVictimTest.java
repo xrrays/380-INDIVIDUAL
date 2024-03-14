@@ -190,6 +190,7 @@ public class DisasterVictimTest {
     // locaion, fam connection
 
     @Test
+    // set gender from enum class
     public void testSetAndGetGender() {
         Gender newGender = Gender.MALE;
         victim.setGender(newGender);
@@ -198,6 +199,7 @@ public class DisasterVictimTest {
     }
 
     @Test
+    // set diet restriction from enum class
     public void testSetAndGetDietaryRestrictions() {
 
         DietaryRestriction restriction1 = DietaryRestriction.AVML;
@@ -225,6 +227,7 @@ public class DisasterVictimTest {
     }
 
     @Test
+    // set dob, obly use one of dob/age
     public void testSetDateOfBirth() {
         String newDateOfBirth = "1987-05-21";
         victim.setDateOfBirth(newDateOfBirth);
@@ -240,6 +243,7 @@ public class DisasterVictimTest {
     }
 
     @Test
+    // add record update with location and victim
     public void testAddMedicalRecord() {
         Location testLocation = new Location("Hospital", "1234 Hospital St");
         MedicalRecord testRecord = new MedicalRecord(testLocation, "Checkup", "2024-03-01");
@@ -255,7 +259,8 @@ public class DisasterVictimTest {
         assertEquals("setLocation should update the location", testLocation, victim.getLocation());
     }
 
-    // establish two sided relationship test (remove and add twice)
+    // establish two sided relationship test
+    // so add relations and remove relations from each person
     @Test
     public void testAddFamilyConnection() {
         DisasterVictim victim1 = new DisasterVictim("Jane", "2024-01-20");
