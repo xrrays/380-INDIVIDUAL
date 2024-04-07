@@ -67,7 +67,7 @@ public class Location {
     public void allocateSupply(DisasterVictim victim, Supply supply) {
         if (this.supplies.contains(supply)) {
             this.supplies.remove(supply);
-            victim.addPersonalBelonging(supply); // Changed from addSupply to addPersonalBelonging
+            victim.addPersonalBelonging(supply);
         }
     }
     

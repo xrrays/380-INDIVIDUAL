@@ -10,7 +10,7 @@ public class ReliefService {
     public ReliefService(Inquirer inquirer, DisasterVictim missingPerson, String dateOfInquiry, String infoProvided, Location lastKnownLocation) {
         this.inquirer = inquirer;
         this.missingPerson = missingPerson;
-        setDateOfInquiry(dateOfInquiry); // Validates the date format on construction
+        setDateOfInquiry(dateOfInquiry);
         this.infoProvided = infoProvided;
         this.lastKnownLocation = lastKnownLocation;
     }
@@ -68,5 +68,4 @@ public class ReliefService {
             lastKnownLocation.getName());
     }
 
-    // Additional methods and logic...
 }

@@ -1,5 +1,7 @@
 package edu.ucalgary.oop;
 
+import java.util.Objects;
+
 public class Inquirer {
     private String firstName;
     private String lastName;
@@ -27,5 +29,21 @@ public class Inquirer {
 
     public String getInfo() {
         return info;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Inquirer inquirer = (Inquirer) o;
+        return Objects.equals(firstName, inquirer.firstName) &&
+               Objects.equals(lastName, inquirer.lastName) &&
+               Objects.equals(servicesPhone, inquirer.servicesPhone) &&
+               Objects.equals(info, inquirer.info);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, servicesPhone, info);
     }
 }

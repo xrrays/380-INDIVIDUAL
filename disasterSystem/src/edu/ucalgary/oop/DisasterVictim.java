@@ -20,17 +20,15 @@ public class DisasterVictim {
 
     // Constructor
     public DisasterVictim(String firstName, String entryDate) {
-        // Validate entry date format, omitted for brevity
+        // Validate entry date format
         this.firstName = firstName;
         this.assignedSocialID = socialIDCounter++;
         this.medicalRecords = new ArrayList<>();
         this.familyConnections = new ArrayList<>();
         this.personalBelongings = new ArrayList<>();
         this.dietaryRestrictions = new ArrayList<>();
-        // Additional initialization as necessary
     }
 
-    // Accessor methods for firstName
     public String getFirstName() {
         return firstName;
     }
@@ -39,7 +37,6 @@ public class DisasterVictim {
         this.firstName = firstName;
     }
 
-    // Accessor methods for lastName
     public String getLastName() {
         return lastName;
     }
@@ -48,7 +45,6 @@ public class DisasterVictim {
         this.lastName = lastName;
     }
 
-    // Accessor methods for dateOfBirth
     public String getDateOfBirth() {
         return dateOfBirth;
     }
@@ -63,7 +59,6 @@ public class DisasterVictim {
         }
     }
 
-    // Accessor methods for approximateAge
     public int getApproximateAge() {
         return approximateAge;
     }
@@ -77,7 +72,6 @@ public class DisasterVictim {
         }
     }
 
-    // Accessor methods for comments
     public String getComments() {
         return comments;
     }
@@ -86,17 +80,14 @@ public class DisasterVictim {
         this.comments = comments;
     }
 
-    // Accessor methods for assignedSocialID
     public int getAssignedSocialID() {
         return assignedSocialID;
     }
 
-    // Method to add a medical record
     public void addMedicalRecord(MedicalRecord record) {
         medicalRecords.add(record);
     }
 
-    // Accessor methods for medicalRecords
     public List<MedicalRecord> getMedicalRecords() {
         return medicalRecords;
     }
@@ -121,7 +112,6 @@ public class DisasterVictim {
         relation.getPersonTwo().familyConnections.remove(relation);
     }
 
-    // Accessor methods for familyConnections
     public List<FamilyRelation> getFamilyConnections() {
         return familyConnections;
     }
@@ -134,17 +124,14 @@ public class DisasterVictim {
         }
     }
 
-    // Method to add a personal belonging
     public void addPersonalBelonging(Supply supply) {
         personalBelongings.add(supply);
     }
 
-    // Method to remove a personal belonging
     public void removePersonalBelonging(Supply supply) {
         personalBelongings.remove(supply);
     }
 
-    // Accessor methods for personalBelongings
     public List<Supply> getPersonalBelongings() {
         return personalBelongings;
     }
@@ -153,7 +140,6 @@ public class DisasterVictim {
         this.personalBelongings = personalBelongings;
     }
 
-    // Accessor methods for dietaryRestrictions
     public List<DietaryRestriction> getDietaryRestrictions() {
         return dietaryRestrictions;
     }
@@ -162,7 +148,6 @@ public class DisasterVictim {
         this.dietaryRestrictions = dietaryRestrictions;
     }
 
-    // Accessor methods for gender
     public Gender getGender() {
         return gender;
     }
@@ -171,7 +156,6 @@ public class DisasterVictim {
         this.gender = gender;
     }
 
-    // Accessor methods for location
     public Location getLocation() {
         return location;
     }
@@ -180,7 +164,6 @@ public class DisasterVictim {
         this.location = location;
     }
 
-    // Additional methods and logic as needed...
 
 }
 

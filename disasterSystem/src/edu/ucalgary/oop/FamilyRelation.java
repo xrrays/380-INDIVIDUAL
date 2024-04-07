@@ -1,5 +1,7 @@
 package edu.ucalgary.oop;
 
+import java.util.Objects;
+
 public class FamilyRelation {
     private DisasterVictim personOne;
     private DisasterVictim personTwo;
@@ -20,7 +22,7 @@ public class FamilyRelation {
     }
 
     public void setPersonOne(DisasterVictim personOne) {
-        // Update the relationship from the perspective of personTwo as well
+        // Update relationship from the perspective of personTwo as well
         if (this.personOne != null) {
             this.personOne.removeFamilyConnection(this);
         }
@@ -33,7 +35,7 @@ public class FamilyRelation {
     }
 
     public void setPersonTwo(DisasterVictim personTwo) {
-        // Update the relationship from the perspective of personOne as well
+        // Update relationship from the perspective of personOne as well
         if (this.personTwo != null) {
             this.personTwo.removeFamilyConnection(this);
         }
@@ -58,5 +60,20 @@ public class FamilyRelation {
             }
         }
         this.relationshipTo = relationshipTo;
+    }
+
+    // Duplication prevention
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FamilyRelation that = (FamilyRelation) o;
+        return (Objects.equals(personOne, that.personOne) && Objects.equals(personTwo, that.personTwo)) ||
+               (Objects.equals(personOne, that.personTwo) && Objects.equals(personTwo, that.personOne));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(personOne, personTwo) + Objects.hash(personTwo, personOne);
     }
 }

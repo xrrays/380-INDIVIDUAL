@@ -32,7 +32,6 @@ public class MedicalRecord {
     }
 
     public void setDateOfTreatment(String dateOfTreatment) {
-        // Validate the date format; simplified as an example, you might need a more robust validation
         if (!dateOfTreatment.matches("\\d{4}-\\d{2}-\\d{2}")) {
             throw new IllegalArgumentException("Invalid date format");
         }
