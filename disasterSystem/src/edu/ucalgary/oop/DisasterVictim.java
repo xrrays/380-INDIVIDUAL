@@ -21,10 +21,16 @@ public class DisasterVictim {
     private Location location;
     private static int socialIDCounter = 1;
 
-    // Constructor
+    // Existing constructor that initializes with first name and entry date
     public DisasterVictim(String firstName, String entryDate) {
+        this(firstName, null, entryDate); // Delegate to the new constructor
+    }
+
+    // New constructor that allows setting both first and last names along with the entry date
+    public DisasterVictim(String firstName, String lastName, String entryDate) {
         this.firstName = firstName;
-        
+        this.lastName = lastName; // This can be null, indicating the last name is not provided
+
         // Validate entry date format
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);  // Set lenient to false to strictly check the date format
@@ -34,13 +40,15 @@ public class DisasterVictim {
         } catch (ParseException e) {
             throw new IllegalArgumentException("Invalid date format for entryDate. Please use yyyy-MM-dd format.");
         }
-        
+
         this.assignedSocialID = socialIDCounter++;
         this.medicalRecords = new ArrayList<>();
         this.familyConnections = new ArrayList<>();
         this.personalBelongings = new ArrayList<>();
         this.dietaryRestrictions = new ArrayList<>();
     }
+
+
 
     public String getFirstName() {
         return firstName;

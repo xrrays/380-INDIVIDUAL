@@ -17,7 +17,8 @@ public class ReliefServiceTest {
     @Before
     public void setUp() {
         inquirer = new Inquirer("John", "Alex", "1234567890", "Looking for family member");
-        missingPerson = new DisasterVictim("Jane Alex", "2024-01-25");
+        // Assuming you have a constructor in DisasterVictim that allows setting both first and last names
+        missingPerson = new DisasterVictim("Jane", "Alex", "2024-01-25");
         lastKnownLocation = new Location("University of Calgary", "2500 University Dr NW");
         reliefService = new ReliefService(inquirer, missingPerson, validDate, expectedInfoProvided, lastKnownLocation);
     }
