@@ -3,6 +3,7 @@ package edu.ucalgary.oop;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import java.util.List;  // Ensure this import is present
 import java.util.ArrayList;
 
 public class LocationTest {
@@ -19,7 +20,7 @@ public class LocationTest {
     }
 
     // Helper method to check if a supply is in the list
-    private boolean containsSupply(ArrayList<Supply> supplies, Supply supplyToCheck) {
+    private boolean containsSupply(List<Supply> supplies, Supply supplyToCheck) {
         return supplies.contains(supplyToCheck);
     }
 
@@ -95,16 +96,13 @@ public class LocationTest {
     // new method to test allocate supply
     @Test
     public void testAllocateSupply() {
-        Location location = new Location("Shelter A", "1234 Shelter Ave");
-        DisasterVictim victim = new DisasterVictim("John Doe", "2024-01-01");
-        Supply supply = new Supply("Water Bottle", 10);
-
+        location.addSupply(supply);
         location.allocateSupply(victim, supply);
-
+    
         // check if the victim has allocated supply
         assertTrue("allocateSupply should allocate the supply to the victim",
-                victim.getSupplies().contains(supply));
-
+                victim.getPersonalBelongings().contains(supply));
+    
         // We need to ensure that when a Supply is allocated to a DisasterVictim, it is
         // removed from the available supplies at a Location.
         assertFalse("allocateSupply should remove the supply from the location's supplies",

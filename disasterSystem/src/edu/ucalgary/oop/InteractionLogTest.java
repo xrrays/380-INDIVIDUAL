@@ -16,7 +16,8 @@ public class InteractionLogTest {
     @Before
     public void setUp() {
         inquirer = new Inquirer("John", "Doe", "1234567890", "Looking for family");
-        victim = new DisasterVictim("Jane", "Doe", "2024-01-01");
+        // Adjusted to match the DisasterVictim constructor parameters
+        victim = new DisasterVictim("Jane", "2024-01-01");
         location = new Location("Shelter A", "1234 Shelter Ave");
         reliefService = new ReliefService(inquirer, victim, "2024-01-01", "Providing shelter", location);
         interactionLog = new InteractionLog();

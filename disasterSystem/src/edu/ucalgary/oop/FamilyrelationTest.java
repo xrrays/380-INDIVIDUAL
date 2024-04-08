@@ -35,10 +35,13 @@ public class FamilyRelationTest {
         String newRelationship = "parent";
         testFamilyRelationObject.setRelationshipTo(newRelationship);
         
-        // Get the relationship for both personOne and personTwo
-        String relationshipForPersonOne = testFamilyRelationObject.getPersonOne().getFamilyConnections()[0].getRelationshipTo();
-        String relationshipForPersonTwo = testFamilyRelationObject.getPersonTwo().getFamilyConnections()[0].getRelationshipTo();
+            // Use List.get(index) instead of array indexing.
+            String relationshipForPersonOne = testFamilyRelationObject.getPersonOne().getFamilyConnections().get(0).getRelationshipTo();
+            String relationshipForPersonTwo = testFamilyRelationObject.getPersonTwo().getFamilyConnections().get(0).getRelationshipTo();
+
         
         assertEquals("setRelationshipTo should update the relationship for personOne", newRelationship, relationshipForPersonOne);
         assertEquals("setRelationshipTo should update the relationship for personTwo", newRelationship, relationshipForPersonTwo);
     }
+    
+}

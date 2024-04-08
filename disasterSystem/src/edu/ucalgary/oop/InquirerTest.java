@@ -27,11 +27,11 @@ public class InquirerTest {
     }
 
     @Test
-    public void testGetServicesPhoneNum() {
-
-        assertEquals("getServicesPhoneNum() should return the correct Services Number", expectedPhoneNumber,
-                inquirer.getServicesPhoneNum());
+    public void testGetServicesPhone() {
+        assertEquals("getServicesPhone() should return the correct Services Phone", expectedPhoneNumber,
+                inquirer.getServicesPhone());
     }
+    
 
     @Test
     public void testGetInfo() {
