@@ -11,11 +11,12 @@ public class FamilyRelation {
         this.personOne = personOne;
         this.personTwo = personTwo;
         this.relationshipTo = relationshipTo;
-    
+
         // Add this relation to both personOne's and personTwo's family connections
         personOne.addFamilyConnection(this);
         personTwo.addFamilyConnection(this);
     }
+
     public DisasterVictim getPersonOne() {
         return personOne;
     }
@@ -26,15 +27,16 @@ public class FamilyRelation {
             // If so, remove the existing connection from the old personOne
             this.personOne.removeFamilyConnection(this);
         }
-        
+
         // Then set the new personOne
         this.personOne = personOne;
-        
+
         // Finally, add this relationship to the new personOne's connections
         if (personOne != null && !personOne.getFamilyConnections().contains(this)) {
             personOne.addFamilyConnection(this);
         }
     }
+
     public DisasterVictim getPersonTwo() {
         return personTwo;
     }
@@ -45,10 +47,10 @@ public class FamilyRelation {
             // If so, remove the existing connection from the old personTwo
             this.personTwo.removeFamilyConnection(this);
         }
-        
+
         // Then set the new personTwo
         this.personTwo = personTwo;
-        
+
         // Finally, add this relationship to the new personTwo's connections
         if (personTwo != null && !personTwo.getFamilyConnections().contains(this)) {
             personTwo.addFamilyConnection(this);
@@ -77,7 +79,7 @@ public class FamilyRelation {
     // Add this utility method in FamilyRelation class
     public boolean involves(DisasterVictim victim) {
         return this.personOne.equals(victim) || this.personTwo.equals(victim);
-    }    
+    }
 
     public DisasterVictim getOtherVictim(DisasterVictim victim) {
         if (victim.equals(personOne)) {
@@ -92,11 +94,13 @@ public class FamilyRelation {
     // Duplication prevention
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         FamilyRelation that = (FamilyRelation) o;
         return (Objects.equals(personOne, that.personOne) && Objects.equals(personTwo, that.personTwo)) ||
-               (Objects.equals(personOne, that.personTwo) && Objects.equals(personTwo, that.personOne));
+                (Objects.equals(personOne, that.personTwo) && Objects.equals(personTwo, that.personOne));
     }
 
     @Override

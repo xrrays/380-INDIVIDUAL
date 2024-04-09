@@ -70,5 +70,5 @@ public class Location {
             victim.addPersonalBelonging(supply);
         }
     }
-    
+
 }

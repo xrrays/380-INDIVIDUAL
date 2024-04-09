@@ -11,16 +11,28 @@ public class DatabaseUtils {
         return DriverManager.getConnection(URL, USERNAME, PASSWORD);
     }
 
-    public static void addDisasterVictim(String firstName, String lastName, String entryDate) {
-        String sql = "INSERT INTO disaster_victims (first_name, last_name, entry_date) VALUES (?, ?, ?)";
+    public static void setInitialSequenceValues() {
+        setSequenceValueForTable("inquirer_id_seq", "INQUIRER");
+        setSequenceValueForTable("inquiry_log_id_seq", "INQUIRY_LOG");
+    }
 
+    private static void setSequenceValueForTable(String sequenceName, String tableName) {
+        String maxIdSql = "SELECT MAX(id) FROM " + tableName;
+        String setvalSql = "SELECT setval('" + sequenceName + "', COALESCE((SELECT MAX(id) FROM " + tableName + "), 0) + 1, false)";
+    
         try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, firstName);
-            pstmt.setString(2, lastName);
-            pstmt.setDate(3, Date.valueOf(entryDate));
-            pstmt.executeUpdate();
+             Statement maxIdStmt = conn.createStatement();
+             PreparedStatement setvalStmt = conn.prepareStatement(setvalSql)) {
+    
+            ResultSet rsMaxId = maxIdStmt.executeQuery(maxIdSql);
+            if (rsMaxId.next()) {
+                // The next value for the sequence is set in the database, but not printed
+                try (ResultSet rsSetval = setvalStmt.executeQuery()) {
+                    // Just consuming the result without printing
+                    if (rsSetval.next()) {
+                    }
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -49,34 +61,6 @@ public class DatabaseUtils {
         }
     }
 
-    public static void setInitialSequenceValues() {
-        setSequenceValueForTable("inquirer_id_seq", "INQUIRER");
-        setSequenceValueForTable("inquiry_log_id_seq", "INQUIRY_LOG");
-    }
-
-    private static void setSequenceValueForTable(String sequenceName, String tableName) {
-        String maxIdSql = "SELECT MAX(id) FROM " + tableName;
-        String setvalSql = "SELECT setval('" + sequenceName + "', COALESCE((SELECT MAX(id) FROM " + tableName + "), 0) + 1, false)";
-    
-        try (Connection conn = getConnection();
-             Statement maxIdStmt = conn.createStatement();
-             PreparedStatement setvalStmt = conn.prepareStatement(setvalSql)) {
-    
-            ResultSet rsMaxId = maxIdStmt.executeQuery(maxIdSql);
-            if (rsMaxId.next()) {
-                // The next value for the sequence is set in the database, but not printed
-                try (ResultSet rsSetval = setvalStmt.executeQuery()) {
-                    // Just consuming the result without printing
-                    if (rsSetval.next()) {
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    
-
     private static int getInquirerIdOrCreate(Connection conn, Inquirer inquirer) throws SQLException {
         String checkSql = "SELECT id FROM INQUIRER WHERE firstName = ? AND lastName = ? AND phoneNumber = ?";
         try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
@@ -103,9 +87,6 @@ public class DatabaseUtils {
         }
     }
     
-
-
-
     public static void searchInquirersByName(String query) {
         String sql = "SELECT * FROM inquirer WHERE firstname ILIKE ? OR lastname ILIKE ?";
     

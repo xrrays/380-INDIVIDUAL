@@ -26,7 +26,7 @@ public class Inquirer {
     public Integer getId() {
         return this.id;
     }
-    
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -49,13 +49,15 @@ public class Inquirer {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Inquirer inquirer = (Inquirer) o;
         return Objects.equals(firstName, inquirer.firstName) &&
-               Objects.equals(lastName, inquirer.lastName) &&
-               Objects.equals(servicesPhone, inquirer.servicesPhone) &&
-               Objects.equals(info, inquirer.info);
+                Objects.equals(lastName, inquirer.lastName) &&
+                Objects.equals(servicesPhone, inquirer.servicesPhone) &&
+                Objects.equals(info, inquirer.info);
     }
 
     @Override

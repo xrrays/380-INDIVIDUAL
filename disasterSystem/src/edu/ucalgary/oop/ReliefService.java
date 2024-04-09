@@ -7,7 +7,8 @@ public class ReliefService {
     private String infoProvided;
     private Location lastKnownLocation;
 
-    public ReliefService(Inquirer inquirer, DisasterVictim missingPerson, String dateOfInquiry, String infoProvided, Location lastKnownLocation) {
+    public ReliefService(Inquirer inquirer, DisasterVictim missingPerson, String dateOfInquiry, String infoProvided,
+            Location lastKnownLocation) {
         this.inquirer = inquirer;
         this.missingPerson = missingPerson;
         setDateOfInquiry(dateOfInquiry);
@@ -58,14 +59,14 @@ public class ReliefService {
         this.lastKnownLocation = lastKnownLocation;
     }
 
-    
     public String getLogDetails() {
-        return String.format("Inquirer: %s, Missing Person: %s %s, Date of Inquiry: %s, Info Provided: %s, Last Known Location: %s",
-            inquirer.getFirstName(),
-            missingPerson.getFirstName(), missingPerson.getLastName(), 
-            dateOfInquiry, 
-            infoProvided, 
-            lastKnownLocation.getName());
+        return String.format(
+                "Inquirer: %s, Missing Person: %s %s, Date of Inquiry: %s, Info Provided: %s, Last Known Location: %s",
+                inquirer.getFirstName(),
+                missingPerson.getFirstName(), missingPerson.getLastName(),
+                dateOfInquiry,
+                infoProvided,
+                lastKnownLocation.getName());
     }
 
 }

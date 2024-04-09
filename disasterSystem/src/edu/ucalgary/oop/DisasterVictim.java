@@ -27,11 +27,12 @@ public class DisasterVictim {
         this(firstName, null, entryDate);
     }
 
-    // Constructor that allows setting both first and last names along with the entry date
+    // Constructor that allows setting both first and last names along with the
+    // entry date
     public DisasterVictim(String firstName, String lastName, String entryDate) {
         this.firstName = firstName;
         this.lastName = lastName;
-        
+
         // Validate entry date format
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
@@ -41,15 +42,13 @@ public class DisasterVictim {
         } catch (ParseException e) {
             throw new IllegalArgumentException("Invalid date format for entryDate. Please use yyyy-MM-dd format.");
         }
-        
+
         this.assignedSocialID = socialIDCounter++;
         this.medicalRecords = new ArrayList<>();
         this.familyConnections = new HashSet<>();
         this.personalBelongings = new ArrayList<>();
         this.dietaryRestrictions = new ArrayList<>();
     }
-
-
 
     public String getFirstName() {
         return firstName;
@@ -119,9 +118,6 @@ public class DisasterVictim {
         this.medicalRecords = medicalRecords;
     }
 
-
-
-
     public void addFamilyConnection(FamilyRelation relation) {
         this.familyConnections.add(relation);
         relation.getOtherVictim(this).getFamilyConnections().add(relation);
@@ -142,46 +138,33 @@ public class DisasterVictim {
         this.familyConnections.addAll(familyConnections);
     }
 
-
-
-
     public void validateFamilyNetwork() {
         System.out.println("Starting validateFamilyNetwork for: " + this.getFirstName());
-    
+
         Set<DisasterVictim> siblings = new HashSet<>();
         for (FamilyRelation relation : this.familyConnections) {
             if ("sibling".equals(relation.getRelationshipTo())) {
                 siblings.add(relation.getOtherVictim(this));
             }
         }
-    
+
         for (DisasterVictim sibling1 : siblings) {
             for (DisasterVictim sibling2 : siblings) {
                 if (!sibling1.equals(sibling2) && !hasDirectConnection(sibling1, sibling2)) {
-                    System.out.println("Adding new sibling relation between: " + sibling1.getFirstName() + " and " + sibling2.getFirstName());
+                    System.out.println("Adding new sibling relation between: " + sibling1.getFirstName() + " and "
+                            + sibling2.getFirstName());
                     new FamilyRelation(sibling1, "sibling", sibling2);
                 }
             }
         }
-    
+
         System.out.println("Completed validateFamilyNetwork for: " + this.getFirstName());
     }
-    
-    
-    
-    
+
     private boolean hasDirectConnection(DisasterVictim victim1, DisasterVictim victim2) {
         return victim1.getFamilyConnections().stream()
-                      .anyMatch(relation -> relation.involves(victim2));
+                .anyMatch(relation -> relation.involves(victim2));
     }
-    
-
-
-
-
-
-
-
 
     public void addPersonalBelonging(Supply supply) {
         personalBelongings.add(supply);
@@ -214,7 +197,8 @@ public class DisasterVictim {
             this.dietaryRestrictions.add(dietaryRestriction);
             System.out.println("Added dietary restriction for " + getFirstName() + ": " + dietaryRestriction);
         } else {
-            System.out.println("Attempted to add a duplicate dietary restriction for " + getFirstName() + ": " + dietaryRestriction);
+            System.out.println("Attempted to add a duplicate dietary restriction for " + getFirstName() + ": "
+                    + dietaryRestriction);
         }
     }
 
@@ -240,6 +224,4 @@ public class DisasterVictim {
         this.location = location;
     }
 
-
 }
-

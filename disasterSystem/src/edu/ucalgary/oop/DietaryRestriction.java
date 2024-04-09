@@ -21,7 +21,7 @@ public enum DietaryRestriction {
 // The command used to run all test files at once
 // java -cp .;junit-4.13.2.jar;hamcrest-core-1.3.jar org.junit.runner.JUnitCore edu.ucalgary.oop.DisasterVictimTest edu.ucalgary.oop.FamilyRelationTest edu.ucalgary.oop.InquirerTest edu.ucalgary.oop.InteractionLogTest edu.ucalgary.oop.LocationTest edu.ucalgary.oop.MedicalRecordTest edu.ucalgary.oop.ReliefServiceTest edu.ucalgary.oop.SupplyTest
 
-// The command used to run main without databse
+// The command used to run main without database
 // java edu.ucalgary.oop.DisasterSystem
 
 // The command used to run main system and interface

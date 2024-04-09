@@ -14,7 +14,7 @@ public class Gender {
     static {
         // Use class loader to get the resource as a stream
         try (InputStream is = Gender.class.getClassLoader().getResourceAsStream("edu/ucalgary/oop/GenderOptions.txt");
-             BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
             genderOptions = reader.lines().map(String::toLowerCase).collect(Collectors.toList());
         } catch (IOException | NullPointerException e) {
             System.err.println("Error loading GenderOptions.txt");
