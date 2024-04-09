@@ -6,6 +6,8 @@ import static org.junit.Assert.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
+import java.util.HashSet;
 
 public class DisasterVictimTest {
     private DisasterVictim victim;
@@ -181,6 +183,19 @@ public class DisasterVictimTest {
                 victim.getDietaryRestrictions());
     }
 
+    @Test
+    public void testAddDietaryRestriction() {
+        DisasterVictim victim = new DisasterVictim("John", "2024-01-01");
+        victim.addDietaryRestriction(DietaryRestriction.VGML); // Adding a vegan meal restriction
+        victim.addDietaryRestriction(DietaryRestriction.KSML); // Adding a kosher meal restriction
+    
+        List<DietaryRestriction> expectedRestrictions = Arrays.asList(DietaryRestriction.VGML, DietaryRestriction.KSML);
+        assertEquals("Dietary restrictions should include VGML and KSML", expectedRestrictions, victim.getDietaryRestrictions());
+    
+        // Trying to add a duplicate restriction to see if it's handled correctly
+        victim.addDietaryRestriction(DietaryRestriction.VGML);
+        assertEquals("Dietary restrictions should still only include VGML and KSML once each", expectedRestrictions, victim.getDietaryRestrictions());
+    }
 
     @Test
     public void testAgeOrBirthdateRequirement() {
@@ -239,8 +254,8 @@ public class DisasterVictimTest {
         FamilyRelation relation = new FamilyRelation(victim2, "parent", victim1);
         victim2.addFamilyConnection(relation);
     
-        List<FamilyRelation> testFamily1 = victim1.getFamilyConnections();
-        List<FamilyRelation> testFamily2 = victim2.getFamilyConnections();
+        Set<FamilyRelation> testFamily1 = victim1.getFamilyConnections();
+        Set<FamilyRelation> testFamily2 = victim2.getFamilyConnections();
     
         assertTrue("addFamilyConnection should add a family relationship",
                 testFamily1.contains(relation) && testFamily2.contains(relation));
@@ -251,21 +266,14 @@ public class DisasterVictimTest {
         DisasterVictim victim1 = new DisasterVictim("Jane", "2024-01-20");
         DisasterVictim victim2 = new DisasterVictim("John", "2024-01-22");
     
-        FamilyRelation relation1 = new FamilyRelation(victim1, "sibling", victim2);
-        FamilyRelation relation2 = new FamilyRelation(victim1, "parent", victim2);
+        FamilyRelation relation = new FamilyRelation(victim1, "sibling", victim2);
+        
+        // Add and then remove the connection
+        victim1.addFamilyConnection(relation);
+        victim1.removeFamilyConnection(relation);
     
-        victim1.addFamilyConnection(relation1);
-        victim2.addFamilyConnection(relation2);
-    
-        victim1.removeFamilyConnection(relation1);
-    
-        List<FamilyRelation> testFamily1 = victim1.getFamilyConnections();
-        List<FamilyRelation> testFamily2 = victim2.getFamilyConnections();
-    
-        assertFalse("removeFamilyConnection should remove the family member from victim1's connections",
-                testFamily1.contains(relation1));
-        assertFalse("removeFamilyConnection should remove the family member from victim2's connections",
-                testFamily2.contains(relation1));
+        assertFalse("The connection should be removed from victim1", victim1.getFamilyConnections().contains(relation));
+        assertFalse("The connection should also be removed from victim2", victim2.getFamilyConnections().contains(relation));
     }
 
     @Test
@@ -275,15 +283,57 @@ public class DisasterVictimTest {
     
         FamilyRelation relation1 = new FamilyRelation(victim1, "sibling", victim2);
         FamilyRelation relation2 = new FamilyRelation(victim1, "parent", victim2);
-        List<FamilyRelation> expectedRelations = Arrays.asList(relation1, relation2);
-    
+        Set<FamilyRelation> expectedRelations = new HashSet<>(Arrays.asList(relation1, relation2));
         victim1.setFamilyConnections(expectedRelations);
     
-        List<FamilyRelation> actualRelations1 = victim1.getFamilyConnections();
-        List<FamilyRelation> actualRelations2 = victim2.getFamilyConnections();
+        Set<FamilyRelation> actualRelations1 = victim1.getFamilyConnections();
+        Set<FamilyRelation> actualRelations2 = victim2.getFamilyConnections();
     
         assertTrue("setFamilyConnection should set family relations for victim1", actualRelations1.containsAll(expectedRelations));
         assertTrue("setFamilyConnection should set family relations for victim2", actualRelations2.containsAll(expectedRelations));
+    }
+
+    @Test
+    public void testTwoSidedRelationship() {
+        DisasterVictim victim1 = new DisasterVictim("Jane", "2024-01-20");
+        DisasterVictim victim2 = new DisasterVictim("John", "2024-01-22");
+    
+        FamilyRelation relation = new FamilyRelation(victim1, "sibling", victim2);
+    
+        assertTrue(victim1.getFamilyConnections().contains(relation));
+        assertTrue(victim2.getFamilyConnections().contains(relation));
+    }
+    
+    @Test
+    public void testDuplicationPrevention() {
+        DisasterVictim victim1 = new DisasterVictim("Jane", "2024-01-20");
+        DisasterVictim victim2 = new DisasterVictim("John", "2024-01-22");
+    
+        FamilyRelation relation1 = new FamilyRelation(victim1, "sibling", victim2);
+        FamilyRelation relation2 = new FamilyRelation(victim1, "sibling", victim2);
+    
+        assertEquals(1, victim1.getFamilyConnections().size());
+        assertEquals(1, victim2.getFamilyConnections().size());
+    }
+    
+    @Test
+    public void testSeriesRelationshipEnforcement() {
+        DisasterVictim victim1 = new DisasterVictim("Jane", "2024-01-20");
+        DisasterVictim victim2 = new DisasterVictim("John", "2024-01-22");
+        DisasterVictim victim3 = new DisasterVictim("Jake", "2024-01-23");
+    
+        new FamilyRelation(victim1, "sibling", victim2);
+        new FamilyRelation(victim1, "sibling", victim3);
+    
+        // Call validateFamilyNetwork for victim1 to ensure all indirect relationships are established
+        victim1.validateFamilyNetwork();
+
+        // Now check if the relationship between victim2 and victim3 is established
+        boolean relationshipEstablished = victim2.getFamilyConnections().stream()
+            .anyMatch(relation -> relation.involves(victim3) && "sibling".equals(relation.getRelationshipTo()));
+        
+        assertTrue("A sibling relationship should be established between victim2 and victim3", relationshipEstablished);
+        
     }
     
 

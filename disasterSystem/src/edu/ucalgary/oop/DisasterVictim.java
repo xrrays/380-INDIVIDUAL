@@ -1,49 +1,50 @@
 package edu.ucalgary.oop;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Set;
+import java.util.HashSet;
 
 public class DisasterVictim {
     private String firstName;
     private String lastName;
     private String dateOfBirth; // In YYYY-MM-DD format
     private String entryDate;
-    private int approximateAge;
+    private int approximateAge = -1;
     private String comments;
     private final int assignedSocialID;
     private List<MedicalRecord> medicalRecords;
-    private List<FamilyRelation> familyConnections;
+    private Set<FamilyRelation> familyConnections;
     private List<Supply> personalBelongings;
     private List<DietaryRestriction> dietaryRestrictions;
     private String gender;
     private Location location;
     private static int socialIDCounter = 1;
 
-    // Existing constructor that initializes with first name and entry date
+    // Constructor that initializes with first name and entry date
     public DisasterVictim(String firstName, String entryDate) {
-        this(firstName, null, entryDate); // Delegate to the new constructor
+        this(firstName, null, entryDate);
     }
 
-    // New constructor that allows setting both first and last names along with the entry date
+    // Constructor that allows setting both first and last names along with the entry date
     public DisasterVictim(String firstName, String lastName, String entryDate) {
         this.firstName = firstName;
-        this.lastName = lastName; // This can be null, indicating the last name is not provided
-
+        this.lastName = lastName;
+        
         // Validate entry date format
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        dateFormat.setLenient(false);  // Set lenient to false to strictly check the date format
+        dateFormat.setLenient(false);
         try {
-            dateFormat.parse(entryDate);  // Attempt to parse the entryDate
-            this.entryDate = entryDate;  // If parsing is successful, set the entryDate
+            dateFormat.parse(entryDate);
+            this.entryDate = entryDate;
         } catch (ParseException e) {
             throw new IllegalArgumentException("Invalid date format for entryDate. Please use yyyy-MM-dd format.");
         }
-
+        
         this.assignedSocialID = socialIDCounter++;
         this.medicalRecords = new ArrayList<>();
-        this.familyConnections = new ArrayList<>();
+        this.familyConnections = new HashSet<>();
         this.personalBelongings = new ArrayList<>();
         this.dietaryRestrictions = new ArrayList<>();
     }
@@ -75,7 +76,6 @@ public class DisasterVictim {
     }
 
     public String getDateOfBirth() {
-        // If the date of birth is 'unset' indicated by null, return null
         return dateOfBirth;
     }
 
@@ -88,7 +88,6 @@ public class DisasterVictim {
         this.approximateAge = -1; // Use -1 to indicate 'unset'.
         this.dateOfBirth = dateOfBirth;
     }
-    
 
     public void setApproximateAge(int approximateAge) {
         // Invalidate the date of birth when setting the age.
@@ -120,37 +119,69 @@ public class DisasterVictim {
         this.medicalRecords = medicalRecords;
     }
 
-    // Method to add a family connection
+
+
+
     public void addFamilyConnection(FamilyRelation relation) {
-        // Only add the relation to this DisasterVictim.
-        if (!this.familyConnections.contains(relation)) {
-            this.familyConnections.add(relation);
-        }
+        this.familyConnections.add(relation);
+        relation.getOtherVictim(this).getFamilyConnections().add(relation);
     }
 
-    // Method to remove a family connection
     public void removeFamilyConnection(FamilyRelation relation) {
-        // Remove the relation from this DisasterVictim
         this.familyConnections.remove(relation);
-        // Remove the relation from the related DisasterVictim if they exist
-        if (relation.getPersonOne() == this && relation.getPersonTwo() != null) {
-            relation.getPersonTwo().familyConnections.remove(relation);
-        } else if (relation.getPersonTwo() == this && relation.getPersonOne() != null) {
-            relation.getPersonOne().familyConnections.remove(relation);
+        DisasterVictim otherVictim = relation.getOtherVictim(this);
+        otherVictim.familyConnections.remove(relation);
+    }
+
+    public Set<FamilyRelation> getFamilyConnections() {
+        return new HashSet<>(familyConnections);
+    }
+
+    public void setFamilyConnections(Set<FamilyRelation> familyConnections) {
+        this.familyConnections.clear();
+        this.familyConnections.addAll(familyConnections);
+    }
+
+
+
+
+    public void validateFamilyNetwork() {
+        System.out.println("Starting validateFamilyNetwork for: " + this.getFirstName());
+    
+        Set<DisasterVictim> siblings = new HashSet<>();
+        for (FamilyRelation relation : this.familyConnections) {
+            if ("sibling".equals(relation.getRelationshipTo())) {
+                siblings.add(relation.getOtherVictim(this));
+            }
         }
+    
+        for (DisasterVictim sibling1 : siblings) {
+            for (DisasterVictim sibling2 : siblings) {
+                if (!sibling1.equals(sibling2) && !hasDirectConnection(sibling1, sibling2)) {
+                    System.out.println("Adding new sibling relation between: " + sibling1.getFirstName() + " and " + sibling2.getFirstName());
+                    new FamilyRelation(sibling1, "sibling", sibling2);
+                }
+            }
+        }
+    
+        System.out.println("Completed validateFamilyNetwork for: " + this.getFirstName());
+    }
+    
+    
+    
+    
+    private boolean hasDirectConnection(DisasterVictim victim1, DisasterVictim victim2) {
+        return victim1.getFamilyConnections().stream()
+                      .anyMatch(relation -> relation.involves(victim2));
     }
     
 
-    public List<FamilyRelation> getFamilyConnections() {
-        return familyConnections;
-    }
 
-    public void setFamilyConnections(List<FamilyRelation> familyConnections) {
-        this.familyConnections.clear(); // Clear the existing connections
-        for (FamilyRelation relation : familyConnections) {
-            this.addFamilyConnection(relation); // Add each connection
-        }
-    }
+
+
+
+
+
 
     public void addPersonalBelonging(Supply supply) {
         personalBelongings.add(supply);
@@ -174,12 +205,25 @@ public class DisasterVictim {
 
     public void setDietaryRestrictions(List<DietaryRestriction> dietaryRestrictions) {
         this.dietaryRestrictions = dietaryRestrictions;
+        System.out.println("Dietary restrictions set for " + getFirstName() + ": " + this.dietaryRestrictions);
+    }
+
+    public void addDietaryRestriction(DietaryRestriction dietaryRestriction) {
+        // Prevent adding duplicates
+        if (!this.dietaryRestrictions.contains(dietaryRestriction)) {
+            this.dietaryRestrictions.add(dietaryRestriction);
+            System.out.println("Added dietary restriction for " + getFirstName() + ": " + dietaryRestriction);
+        } else {
+            System.out.println("Attempted to add a duplicate dietary restriction for " + getFirstName() + ": " + dietaryRestriction);
+        }
     }
 
     public void setGender(String gender) {
         if (Gender.isValidGender(gender)) {
             this.gender = gender;
+            System.out.println("Setting gender: " + gender);
         } else {
+            System.out.println("Attempted to set invalid gender: " + gender);
             throw new IllegalArgumentException("Invalid gender");
         }
     }

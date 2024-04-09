@@ -23,8 +23,9 @@ public class Gender {
     }
 
     public static boolean isValidGender(String gender) {
-        // Compare lower case version for case-insensitive matching
-        return genderOptions.contains(gender.toLowerCase());
+        boolean isValid = genderOptions.contains(gender.toLowerCase());
+        System.out.println("Checking if gender is valid: " + gender + " - " + (isValid ? "Valid" : "Invalid"));
+        return isValid;
     }
 
     public static List<String> getLoadedGenders() {

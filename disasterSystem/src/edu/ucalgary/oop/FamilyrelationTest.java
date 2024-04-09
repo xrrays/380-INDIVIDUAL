@@ -2,6 +2,7 @@ package edu.ucalgary.oop;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import java.util.Set;
 
 public class FamilyRelationTest {
 
@@ -36,12 +37,24 @@ public class FamilyRelationTest {
         testFamilyRelationObject.setRelationshipTo(newRelationship);
         
             // Use List.get(index) instead of array indexing.
-            String relationshipForPersonOne = testFamilyRelationObject.getPersonOne().getFamilyConnections().get(0).getRelationshipTo();
-            String relationshipForPersonTwo = testFamilyRelationObject.getPersonTwo().getFamilyConnections().get(0).getRelationshipTo();
+            String relationshipForPersonOne = testFamilyRelationObject.getPersonOne().getFamilyConnections().iterator().next().getRelationshipTo();
+            String relationshipForPersonTwo = testFamilyRelationObject.getPersonTwo().getFamilyConnections().iterator().next().getRelationshipTo();
 
         
         assertEquals("setRelationshipTo should update the relationship for personOne", newRelationship, relationshipForPersonOne);
         assertEquals("setRelationshipTo should update the relationship for personTwo", newRelationship, relationshipForPersonTwo);
+    }
+
+    @Test
+    public void testRelationshipUpdate() {
+        FamilyRelation relation = new FamilyRelation(personOne, "sibling", personTwo);
+    
+        // Change the relationship
+        relation.setRelationshipTo("parent");
+        
+        assertEquals("parent", relation.getRelationshipTo());
+        assertEquals("parent", personOne.getFamilyConnections().iterator().next().getRelationshipTo());
+        assertEquals("parent", personTwo.getFamilyConnections().iterator().next().getRelationshipTo());
     }
     
 }

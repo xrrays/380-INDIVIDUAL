@@ -11,36 +11,48 @@ public class FamilyRelation {
         this.personOne = personOne;
         this.personTwo = personTwo;
         this.relationshipTo = relationshipTo;
-        
-        // When a new family relation is created, it should be added to both DisasterVictims' family connections
+    
+        // Add this relation to both personOne's and personTwo's family connections
         personOne.addFamilyConnection(this);
         personTwo.addFamilyConnection(this);
     }
-
     public DisasterVictim getPersonOne() {
         return personOne;
     }
 
     public void setPersonOne(DisasterVictim personOne) {
-        // Update relationship from the perspective of personTwo as well
-        if (this.personOne != null) {
+        // First, check if we are changing the person
+        if (this.personOne != null && !this.personOne.equals(personOne)) {
+            // If so, remove the existing connection from the old personOne
             this.personOne.removeFamilyConnection(this);
         }
-        personOne.addFamilyConnection(this);
+        
+        // Then set the new personOne
         this.personOne = personOne;
+        
+        // Finally, add this relationship to the new personOne's connections
+        if (personOne != null && !personOne.getFamilyConnections().contains(this)) {
+            personOne.addFamilyConnection(this);
+        }
     }
-
     public DisasterVictim getPersonTwo() {
         return personTwo;
     }
 
     public void setPersonTwo(DisasterVictim personTwo) {
-        // Update relationship from the perspective of personOne as well
-        if (this.personTwo != null) {
+        // First, check if we are changing the person
+        if (this.personTwo != null && !this.personTwo.equals(personTwo)) {
+            // If so, remove the existing connection from the old personTwo
             this.personTwo.removeFamilyConnection(this);
         }
-        personTwo.addFamilyConnection(this);
+        
+        // Then set the new personTwo
         this.personTwo = personTwo;
+        
+        // Finally, add this relationship to the new personTwo's connections
+        if (personTwo != null && !personTwo.getFamilyConnections().contains(this)) {
+            personTwo.addFamilyConnection(this);
+        }
     }
 
     public String getRelationshipTo() {
@@ -60,6 +72,21 @@ public class FamilyRelation {
             }
         }
         this.relationshipTo = relationshipTo;
+    }
+
+    // Add this utility method in FamilyRelation class
+    public boolean involves(DisasterVictim victim) {
+        return this.personOne.equals(victim) || this.personTwo.equals(victim);
+    }    
+
+    public DisasterVictim getOtherVictim(DisasterVictim victim) {
+        if (victim.equals(personOne)) {
+            return personTwo;
+        } else if (victim.equals(personTwo)) {
+            return personOne;
+        } else {
+            throw new IllegalArgumentException("The provided victim is not part of this relationship.");
+        }
     }
 
     // Duplication prevention
