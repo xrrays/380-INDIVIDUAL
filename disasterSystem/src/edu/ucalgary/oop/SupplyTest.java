@@ -1,3 +1,13 @@
+/**
+ * This class conducts tests for the Supply class to ensure that supply details
+ * are correctly handled and that inventory management functionalities are
+ * operating as expected.
+ * 
+ * @author Rayyan Ahmed
+ * @version 1.9
+ * @since 1.0
+ */
+
 package edu.ucalgary.oop;
 
 import org.junit.Test;

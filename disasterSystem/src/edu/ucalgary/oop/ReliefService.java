@@ -1,3 +1,13 @@
+/**
+ * This class manages and records the interactions between inquirers and the relief services
+ * provided. The class holds information about the inquirer, the missing person, the
+ * service details, and the last known location.
+ * 
+ * @author Rayyan Ahmed
+ * @version 1.9
+ * @since 1.0
+ */
+
 package edu.ucalgary.oop;
 
 public class ReliefService {

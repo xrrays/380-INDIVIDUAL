@@ -1,3 +1,12 @@
+/**
+ * This class holds details about the type of supply and its quantity, 
+ * facilitating inventory management and allocation to disaster victims.
+ * 
+ * @author Rayyan Ahmed
+ * @version 1.9
+ * @since 1.0
+ */
+
 package edu.ucalgary.oop;
 
 public class Supply {

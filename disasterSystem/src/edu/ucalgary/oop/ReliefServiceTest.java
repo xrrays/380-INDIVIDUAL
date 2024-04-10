@@ -1,3 +1,12 @@
+/**
+ * This class provides unit tests for the ReliefService class, ensuring that it
+ * accurately logs and retrieves information about relief services provided to inquirers.
+ * 
+ * @author Rayyan Ahmed
+ * @version 1.9
+ * @since 1.0
+ */
+
 package edu.ucalgary.oop;
 
 import org.junit.Before;

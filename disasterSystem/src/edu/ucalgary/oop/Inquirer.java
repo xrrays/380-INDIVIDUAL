@@ -1,3 +1,12 @@
+/**
+ * This class represents an inquirer and their details in the disaster management system.
+ * Each inquirer is identified uniquely, enabling efficient inquiry tracking and support.
+ * 
+ * @author Rayyan Ahmed
+ * @version 1.9
+ * @since 1.0
+ */
+
 package edu.ucalgary.oop;
 
 import java.util.Objects;

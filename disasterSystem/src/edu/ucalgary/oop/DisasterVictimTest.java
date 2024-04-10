@@ -1,3 +1,13 @@
+/**
+ * This class contains unit tests for the DisasterVictim class, 
+ * validating functionality such as getters and setters, age/birthdate,
+ * family connections, gender, and dietary restrictions.
+ * 
+ * @author Rayyan Ahmed
+ * @version 1.9
+ * @since 1.0
+ */
+
 package edu.ucalgary.oop;
 
 import org.junit.Before;

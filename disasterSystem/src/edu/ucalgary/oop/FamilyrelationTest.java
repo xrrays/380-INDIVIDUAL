@@ -1,3 +1,12 @@
+/**
+ * This class provides unit tests for the FamilyRelation class, ensuring that
+ * family connections are correctly established, modified, and deleted.
+ * 
+ * @author Rayyan Ahmed
+ * @version 1.9
+ * @since 1.0
+ */
+
 package edu.ucalgary.oop;
 
 import org.junit.Test;

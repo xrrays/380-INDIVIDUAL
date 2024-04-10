@@ -1,3 +1,12 @@
+/**
+ * The Gender class is responsible for extracting from GenderOptions.txt,
+ * and validating the list.
+ * 
+ * @author Rayyan Ahmed
+ * @version 1.9
+ * @since 1.0
+ */
+
 package edu.ucalgary.oop;
 
 import java.io.BufferedReader;

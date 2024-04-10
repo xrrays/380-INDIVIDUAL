@@ -1,3 +1,12 @@
+/**
+ * This class represents the medical records associated with a victim, detailing the treatment received, 
+ * the location of the treatment, and the date it was provided.
+ * 
+ * @author Rayyan Ahmed
+ * @version 1.9
+ * @since 1.0
+ */
+
 package edu.ucalgary.oop;
 
 public class MedicalRecord {

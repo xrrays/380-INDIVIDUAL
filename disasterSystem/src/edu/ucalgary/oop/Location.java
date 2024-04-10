@@ -1,3 +1,13 @@
+/**
+ * This class represents a disaster relief location. It holds information about the site,
+ * including name and address, as well as managing the records of supplies and occupants
+ * present at the location.
+ * 
+ * @author Rayyan Ahmed
+ * @version 1.9
+ * @since 1.0
+ */
+
 package edu.ucalgary.oop;
 
 import java.util.ArrayList;

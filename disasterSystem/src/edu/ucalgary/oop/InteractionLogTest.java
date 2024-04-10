@@ -1,3 +1,12 @@
+/**
+ * This class provides tests for InteractionLog class functions, including 
+ * the logging of interactions and the searching of inquirer records.
+ * 
+ * @author Rayyan Ahmed
+ * @version 1.9
+ * @since 1.0
+ */
+
 package edu.ucalgary.oop;
 
 import org.junit.Test;

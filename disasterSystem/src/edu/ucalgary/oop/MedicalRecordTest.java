@@ -1,3 +1,12 @@
+/**
+ * This class contains tests for the MedicalRecord class to verify the correct handling, storage,
+ * and retrieval of medical record information.
+ * 
+ * @author Rayyan Ahmed
+ * @version 1.9
+ * @since 1.0
+ */
+
 package edu.ucalgary.oop;
 
 import org.junit.Test;

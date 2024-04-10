@@ -1,3 +1,13 @@
+/**
+ * This class is responsible for tracking interactions between inquirers and relief services.
+ * It maintains a log that records all services provided to or inquiries made by inquirers.
+
+ * 
+ * @author Rayyan Ahmed
+ * @version 1.9
+ * @since 1.0
+ */
+
 package edu.ucalgary.oop;
 
 import java.util.ArrayList;

@@ -1,3 +1,12 @@
+/**
+ * This class contains unit tests for the Location class, covering all functionalities including
+ * managing occupants, supplies, and ensuring consistency when supplies are allocated to victims.
+ * 
+ * @author Rayyan Ahmed
+ * @version 1.9
+ * @since 1.0
+ */
+
 package edu.ucalgary.oop;
 
 import org.junit.Before;

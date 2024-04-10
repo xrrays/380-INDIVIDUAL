@@ -1,3 +1,12 @@
+/**
+ * This class helps manage the representation of family relationships between two victims.
+ * Alongside other methods in DisasterVicitm, this class ensures the project requirements are met.
+ * 
+ * @author Rayyan Ahmed
+ * @version 1.9
+ * @since 1.0
+ */
+
 package edu.ucalgary.oop;
 
 import java.util.Objects;

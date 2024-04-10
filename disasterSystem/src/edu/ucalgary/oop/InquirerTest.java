@@ -1,3 +1,12 @@
+/**
+ * This class contains tests for the Inquirer class, ensuring that inquirer details
+ * are correctly managed and retrievable.
+ * 
+ * @author Rayyan Ahmed
+ * @version 1.9
+ * @since 1.0
+ */
+
 package edu.ucalgary.oop;
 
 import org.junit.*;
