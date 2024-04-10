@@ -24,7 +24,7 @@ public enum DietaryRestriction {
 // The command used to run main without database
 // java edu.ucalgary.oop.DisasterSystem
 
-// The command used to run main system and interface
+// The command used to run main system and interface with database
 // java -cp .;postgresql-42.7.3.jar;junit-4.13.2.jar;hamcrest-core-1.3.jar edu.ucalgary.oop.DisasterSystem
 
 // The commands used to make the database start at MAX ID
