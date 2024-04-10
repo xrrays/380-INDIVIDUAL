@@ -12,7 +12,7 @@ package edu.ucalgary.oop;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import java.util.List;  // Ensure this import is present
+import java.util.List;
 import java.util.ArrayList;
 
 public class LocationTest {
@@ -22,13 +22,12 @@ public class LocationTest {
 
     @Before
     public void setUp() {
-        // Initializing test objects before each test method
         location = new Location("Shelter A", "1234 Shelter Ave");
         victim = new DisasterVictim("John Doe", "2024-01-01");
         supply = new Supply("Water Bottle", 10);
     }
 
-    // Helper method to check if a supply is in the list
+    // A helper method to check if a supply is in the list
     private boolean containsSupply(List<Supply> supplies, Supply supplyToCheck) {
         return supplies.contains(supplyToCheck);
     }
@@ -87,7 +86,7 @@ public class LocationTest {
 
     @Test
     public void testRemoveSupply() {
-        location.addSupply(supply); // Ensure the supply is added first
+        location.addSupply(supply);
         location.removeSupply(supply);
         assertFalse("removeSupply should remove the supply from the supplies list",
                 containsSupply(location.getSupplies(), supply));
@@ -102,18 +101,16 @@ public class LocationTest {
                 containsSupply(location.getSupplies(), supply));
     }
 
-    // new method to test allocate supply
+    // This method checks if the supply has the correct consistency and
+    // is added/removed correctly from a victim/location.
     @Test
     public void testAllocateSupply() {
         location.addSupply(supply);
         location.allocateSupply(victim, supply);
-    
-        // check if the victim has allocated supply
+
         assertTrue("allocateSupply should allocate the supply to the victim",
                 victim.getPersonalBelongings().contains(supply));
-    
-        // We need to ensure that when a Supply is allocated to a DisasterVictim, it is
-        // removed from the available supplies at a Location.
+
         assertFalse("allocateSupply should remove the supply from the location's supplies",
                 location.getSupplies().contains(supply));
     }

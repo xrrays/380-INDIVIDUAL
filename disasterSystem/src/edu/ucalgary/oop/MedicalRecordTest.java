@@ -70,8 +70,7 @@ public class MedicalRecordTest {
 
     @Test
     public void testSetDateOfTreatmentWithValidFormat() {
-
-        medicalRecord.setDateOfTreatment(validDateOfTreatment); // Should not throw an exception
+        medicalRecord.setDateOfTreatment(validDateOfTreatment);
     }
 
     @Test
@@ -80,7 +79,7 @@ public class MedicalRecordTest {
         String failureReason = "no exception was thrown";
 
         try {
-            medicalRecord.setDateOfTreatment(inValidDateOfTreatment); // Should throw IllegalArgumentException
+            medicalRecord.setDateOfTreatment(inValidDateOfTreatment);
         } catch (IllegalArgumentException e) {
             correctValue = true;
         } catch (Exception e) {
@@ -98,7 +97,7 @@ public class MedicalRecordTest {
         String failureReason = "no exception was thrown";
 
         try {
-            medicalRecord.setDateOfTreatment(expectedTreatmentDetails); // Should throw IllegalArgumentException
+            medicalRecord.setDateOfTreatment(expectedTreatmentDetails);
         } catch (IllegalArgumentException e) {
             correctValue = true;
         } catch (Exception e) {

@@ -39,31 +39,31 @@ public class FamilyRelationTest {
         assertEquals("setPersonTwo should update personTwo", newPersonTwo, testFamilyRelationObject.getPersonTwo());
     }
 
-    // test that when realtion is changed it is changed for both
     @Test
     public void testSetAndGetRelationshipTo() {
         String newRelationship = "parent";
         testFamilyRelationObject.setRelationshipTo(newRelationship);
-        
-            // Use List.get(index) instead of array indexing.
-            String relationshipForPersonOne = testFamilyRelationObject.getPersonOne().getFamilyConnections().iterator().next().getRelationshipTo();
-            String relationshipForPersonTwo = testFamilyRelationObject.getPersonTwo().getFamilyConnections().iterator().next().getRelationshipTo();
 
-        
-        assertEquals("setRelationshipTo should update the relationship for personOne", newRelationship, relationshipForPersonOne);
-        assertEquals("setRelationshipTo should update the relationship for personTwo", newRelationship, relationshipForPersonTwo);
+        String relationshipForPersonOne = testFamilyRelationObject.getPersonOne().getFamilyConnections().iterator()
+                .next().getRelationshipTo();
+        String relationshipForPersonTwo = testFamilyRelationObject.getPersonTwo().getFamilyConnections().iterator()
+                .next().getRelationshipTo();
+
+        assertEquals("setRelationshipTo should update the relationship for personOne", newRelationship,
+                relationshipForPersonOne);
+        assertEquals("setRelationshipTo should update the relationship for personTwo", newRelationship,
+                relationshipForPersonTwo);
     }
 
     @Test
     public void testRelationshipUpdate() {
         FamilyRelation relation = new FamilyRelation(personOne, "sibling", personTwo);
-    
-        // Change the relationship
+
         relation.setRelationshipTo("parent");
-        
+
         assertEquals("parent", relation.getRelationshipTo());
         assertEquals("parent", personOne.getFamilyConnections().iterator().next().getRelationshipTo());
         assertEquals("parent", personTwo.getFamilyConnections().iterator().next().getRelationshipTo());
     }
-    
+
 }

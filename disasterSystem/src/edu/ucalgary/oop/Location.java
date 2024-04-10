@@ -74,6 +74,8 @@ public class Location {
         this.supplies.remove(supply);
     }
 
+    // This method meets a requirement by ensuring supply consistency. If a
+    // supply is given to a victim, it is removed from the location.
     public void allocateSupply(DisasterVictim victim, Supply supply) {
         if (this.supplies.contains(supply)) {
             this.supplies.remove(supply);

@@ -17,7 +17,7 @@ public class MedicalRecord {
     public MedicalRecord(Location location, String treatmentDetails, String dateOfTreatment) {
         this.location = location;
         this.treatmentDetails = treatmentDetails;
-        setDateOfTreatment(dateOfTreatment); // Validates the date format on construction
+        setDateOfTreatment(dateOfTreatment);
     }
 
     public Location getLocation() {

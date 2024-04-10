@@ -16,12 +16,12 @@ public class FamilyRelation {
     private DisasterVictim personTwo;
     private String relationshipTo;
 
+    // Constructor that adds relationships both ways.
     public FamilyRelation(DisasterVictim personOne, String relationshipTo, DisasterVictim personTwo) {
         this.personOne = personOne;
         this.personTwo = personTwo;
         this.relationshipTo = relationshipTo;
 
-        // Add this relation to both personOne's and personTwo's family connections
         personOne.addFamilyConnection(this);
         personTwo.addFamilyConnection(this);
     }
@@ -30,48 +30,41 @@ public class FamilyRelation {
         return personOne;
     }
 
-    public void setPersonOne(DisasterVictim personOne) {
-        // First, check if we are changing the person
-        if (this.personOne != null && !this.personOne.equals(personOne)) {
-            // If so, remove the existing connection from the old personOne
-            this.personOne.removeFamilyConnection(this);
-        }
-
-        // Then set the new personOne
-        this.personOne = personOne;
-
-        // Finally, add this relationship to the new personOne's connections
-        if (personOne != null && !personOne.getFamilyConnections().contains(this)) {
-            personOne.addFamilyConnection(this);
-        }
-    }
-
     public DisasterVictim getPersonTwo() {
         return personTwo;
-    }
-
-    public void setPersonTwo(DisasterVictim personTwo) {
-        // First, check if we are changing the person
-        if (this.personTwo != null && !this.personTwo.equals(personTwo)) {
-            // If so, remove the existing connection from the old personTwo
-            this.personTwo.removeFamilyConnection(this);
-        }
-
-        // Then set the new personTwo
-        this.personTwo = personTwo;
-
-        // Finally, add this relationship to the new personTwo's connections
-        if (personTwo != null && !personTwo.getFamilyConnections().contains(this)) {
-            personTwo.addFamilyConnection(this);
-        }
     }
 
     public String getRelationshipTo() {
         return relationshipTo;
     }
 
+    // The setPerson methods updates the relationship of the person.
+    public void setPersonOne(DisasterVictim personOne) {
+        if (this.personOne != null && !this.personOne.equals(personOne)) {
+            this.personOne.removeFamilyConnection(this);
+        }
+
+        this.personOne = personOne;
+
+        if (personOne != null && !personOne.getFamilyConnections().contains(this)) {
+            personOne.addFamilyConnection(this);
+        }
+    }
+
+    public void setPersonTwo(DisasterVictim personTwo) {
+        if (this.personTwo != null && !this.personTwo.equals(personTwo)) {
+            this.personTwo.removeFamilyConnection(this);
+        }
+
+        this.personTwo = personTwo;
+
+        if (personTwo != null && !personTwo.getFamilyConnections().contains(this)) {
+            personTwo.addFamilyConnection(this);
+        }
+    }
+
+    // This method updates the relationship type for both persons.
     public void setRelationshipTo(String relationshipTo) {
-        // Update the relationship for both persons involved
         for (FamilyRelation rel : personOne.getFamilyConnections()) {
             if (rel.getPersonTwo().equals(this.personTwo)) {
                 rel.relationshipTo = relationshipTo;
@@ -85,11 +78,14 @@ public class FamilyRelation {
         this.relationshipTo = relationshipTo;
     }
 
-    // Add this utility method in FamilyRelation class
+    // This method helps the validateFamilyNetwork process by checking if a person
+    // is involved in the relationship.
     public boolean involves(DisasterVictim victim) {
         return this.personOne.equals(victim) || this.personTwo.equals(victim);
     }
 
+    // This method helps the validateFamilyNetwork process by returning the "other"
+    // victim in the relationship, not provided in the argument.
     public DisasterVictim getOtherVictim(DisasterVictim victim) {
         if (victim.equals(personOne)) {
             return personTwo;
@@ -100,7 +96,7 @@ public class FamilyRelation {
         }
     }
 
-    // Duplication prevention
+    // This method checks if both objects represent the same relationship.
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -112,6 +108,7 @@ public class FamilyRelation {
                 (Objects.equals(personOne, that.personTwo) && Objects.equals(personTwo, that.personOne));
     }
 
+    // This method checks if both objects in the relationship have the same hash code, are equal.
     @Override
     public int hashCode() {
         return Objects.hash(personOne, personTwo) + Objects.hash(personTwo, personOne);

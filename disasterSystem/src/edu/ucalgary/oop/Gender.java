@@ -18,8 +18,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Gender {
+
     private static List<String> genderOptions = new ArrayList<>();
 
+    // This static block reads the text file and populates a list with the contents.
     static {
         // Use class loader to get the resource as a stream
         try (InputStream is = Gender.class.getClassLoader().getResourceAsStream("edu/ucalgary/oop/GenderOptions.txt");
@@ -31,12 +33,14 @@ public class Gender {
         }
     }
 
+    // This checks if the provided argument is one of the genders in the list.
     public static boolean isValidGender(String gender) {
         boolean isValid = genderOptions.contains(gender.toLowerCase());
         System.out.println("Checking if gender is valid: " + gender + " - " + (isValid ? "Valid" : "Invalid"));
         return isValid;
     }
 
+    // A list of the loaded genders.
     public static List<String> getLoadedGenders() {
         return new ArrayList<>(genderOptions);
     }

@@ -40,7 +40,6 @@ public class InquirerTest {
         assertEquals("getServicesPhone() should return the correct Services Phone", expectedPhoneNumber,
                 inquirer.getServicesPhone());
     }
-    
 
     @Test
     public void testGetInfo() {

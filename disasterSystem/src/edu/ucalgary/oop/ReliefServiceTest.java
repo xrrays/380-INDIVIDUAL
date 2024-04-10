@@ -26,7 +26,6 @@ public class ReliefServiceTest {
     @Before
     public void setUp() {
         inquirer = new Inquirer("John", "Alex", "1234567890", "Looking for family member");
-        // Assuming you have a constructor in DisasterVictim that allows setting both first and last names
         missingPerson = new DisasterVictim("Jane", "Alex", "2024-01-25");
         lastKnownLocation = new Location("University of Calgary", "2500 University Dr NW");
         reliefService = new ReliefService(inquirer, missingPerson, validDate, expectedInfoProvided, lastKnownLocation);
@@ -74,7 +73,7 @@ public class ReliefServiceTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testSetDateOfInquiryWithInvalidDate() {
-        reliefService.setDateOfInquiry(invalidDate); // This should throw IllegalArgumentException due to invalid format
+        reliefService.setDateOfInquiry(invalidDate);
     }
 
     @Test
